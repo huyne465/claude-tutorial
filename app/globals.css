@@ -1106,17 +1106,55 @@ strong {
   margin: 18px 0 0;
 }
 
-.shot a {
+.shot-open {
   display: block;
+  width: 100%;
+  padding: 0;
   overflow: hidden;
   background: var(--card);
   border: var(--line);
   border-radius: 16px;
   box-shadow: var(--shadow);
+  cursor: zoom-in;
 }
 
-.shot a:hover {
+.shot-open:hover {
   box-shadow: var(--shadow-lg);
+}
+
+/* ảnh phóng to */
+.shot-dialog {
+  width: min(96vw, 1280px, 147vh); /* ảnh 16:10, giữ vừa cả chiều cao màn hình */
+  max-width: none;
+  padding: 0;
+  overflow: hidden;
+  background: var(--card);
+  border: var(--line);
+  border-radius: 16px;
+  box-shadow: var(--shadow-lg);
+  cursor: zoom-out;
+}
+
+.shot-dialog::backdrop {
+  background: rgb(46 33 64 / 0.75);
+}
+
+.shot-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 6px 14px;
+  background: var(--butter);
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  box-shadow: var(--shadow-sm);
+  font: 800 16px/1.4 var(--font-body);
+  color: var(--ink);
+  cursor: pointer;
+}
+
+html:has(.shot-dialog[open]) {
+  overflow: hidden;
 }
 
 .shot img {

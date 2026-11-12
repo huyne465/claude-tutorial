@@ -68,7 +68,7 @@ Dự án không có lint/test script.
 
 ```
 public/anh/              ảnh chụp claude.ai (mới)
-app/components/Shot.tsx  khung ảnh: figure + link mở bản lớn + chú thích (mới)
+app/components/Shot.tsx  khung ảnh: figure + nút phóng to (dialog) + chú thích (mới)
 app/globals.css          thêm .shot (viền, bóng, chú thích chữ tay, co theo điện thoại)
 app/page.tsx             chèn <Shot> dưới từng bước
 README.md                thêm 3 dòng: ảnh ở đâu, cách thay khi claude.ai đổi giao diện
@@ -80,22 +80,24 @@ Theo đúng kiểu hiện có: named export, props type ngay trên component, ch
 tiếng Việt, tên file ảnh kebab-case không dấu, màu lấy từ biến CSS trong `:root`.
 
 ```tsx
-import Image, { type StaticImageData } from "next/image";
-
-type Props = { src: StaticImageData; alt: string; caption?: string };
-
-/** Ảnh chụp màn hình claude.ai. Bấm vào để mở bản lớn ở tab mới. */
-export function Shot({ src, alt, caption }: Props) {
+/** Ảnh chụp màn hình claude.ai. Bấm vào để phóng to ngay trên trang, bấm lần nữa hoặc Esc để đóng. */
+export function Shot({ src, alt, caption, className = "shot" }: Props) {
+  const dialog = useRef<HTMLDialogElement>(null);
   return (
-    <figure className="shot">
-      <a href={src.src} target="_blank" rel="noreferrer">
-        <Image src={src} alt={alt} sizes="(max-width: 640px) 100vw, 720px" placeholder="blur" />
-      </a>
+    <figure className={className}>
+      <button type="button" className="shot-open" onClick={() => dialog.current?.showModal()}>
+        <Image src={src} alt="" sizes="(max-width: 640px) 100vw, 640px" placeholder="blur" />
+      </button>
       {caption && <figcaption>{caption}</figcaption>}
+      <dialog ref={dialog} className="shot-dialog" onClick={() => dialog.current?.close()}>
+        <Image src={src} alt={alt} sizes="(max-width: 1280px) 100vw, 1280px" />
+      </dialog>
     </figure>
   );
 }
 ```
+
+Phóng to dùng `<dialog>` có sẵn của trình duyệt: không thêm thư viện, Esc tự đóng.
 
 Dùng trong trang:
 
@@ -140,8 +142,8 @@ Không thêm framework test: việc này chủ yếu là ảnh và bố cục, k
 - [x] Đủ 11 ảnh trong `public/anh/`, cùng tỉ lệ 1280×800.
 - [x] Mỗi ảnh có ít nhất một khung hồng đánh số, nằm đúng nút được nhắc trong bước.
 - [x] Zoom kiểm: 0 chữ cá nhân đọc được trên mọi ảnh.
-- [x] Mỗi ảnh nằm dưới đúng bước ở bảng trên, có `alt` tiếng Việt, bấm vào mở
-      bản lớn ở tab mới.
+- [x] Mỗi ảnh nằm dưới đúng bước ở bảng trên, có `alt` tiếng Việt, bấm vào phóng to
+      ngay trên trang (không chuyển trang).
 - [x] `npm run build` qua.
 - [x] Ở 390px: ảnh co vừa chiều ngang, không cuộn ngang.
 - [x] Tên nút trong sổ khớp tên nút trong ảnh.
