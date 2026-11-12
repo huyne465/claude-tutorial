@@ -27,7 +27,7 @@ import anhChatConnectors from "../public/anh/05-chat-connectors.jpg";
 /* ---------- dữ liệu nhỏ cho từng phần ---------- */
 
 const NAV = [
-  { href: "#prompt", label: "Nhờ cho khéo" },
+  { href: "#prompt", label: "Cách nhờ Claude" },
   { href: "#luan", label: "Viết luận" },
   { href: "#skills", label: "Skills" },
   { href: "#plugins", label: "Plugins" },
@@ -36,7 +36,7 @@ const NAV = [
 ];
 
 const TOC = [
-  { href: "#prompt", bg: "bg-pink", t: "Nhờ cho khéo", d: "Cách viết lời nhờ (prompt) để Claude hiểu đúng ý ngay lần đầu." },
+  { href: "#prompt", bg: "bg-pink", t: "Cách nhờ Claude", d: "Cách viết lời nhờ (prompt) để Claude hiểu đúng ý ngay lần đầu." },
   { href: "#luan", bg: "bg-butter", t: "Viết luận", d: "Từ tìm ý tới sửa câu, mà bài vẫn là giọng văn của cậu." },
   { href: "#skills", bg: "bg-mint", t: "Skills", d: "Bật “công thức” để Claude làm được file Word, PowerPoint, PDF." },
   { href: "#plugins", bg: "bg-sky", t: "Plugins", d: "Cài nguyên một hộp đồ nghề chỉ với một nút bấm." },
